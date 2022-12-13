@@ -10,15 +10,35 @@ public class Main {
                 .createEntityManagerFactory("org.kava.person");
         EntityManager entityManager = factory.createEntityManager();
 
-        Person person = new Person();
-        person.setId(2);
-        person.setFirstName("first");
-        person.setLastName("last");
-        person.setAge(13);
-        person.setPhoneNumber("111222333");
+        Person person1 = new Person(1, "Jan", "Kowalski", 40, "111222333");
+        Person person2 = new Person(2, "Anna", "Kowalska", 38, "777888999");
 
+        // Inserting new objects.
         entityManager.getTransaction().begin();
-        entityManager.persist(person);
+        entityManager.persist(person1);
+        entityManager.persist(person2);
+        entityManager.getTransaction().commit();
+
+        // Reading objects.
+        Person readPerson1 = entityManager.find(Person.class, 1);
+        Person readPerson2 = entityManager.find(Person.class, 2);
+        System.out.println(readPerson1);
+        System.out.println(readPerson2);
+
+        // Deleting one objet.
+        entityManager.getTransaction().begin();
+        entityManager.remove(readPerson1);
+        entityManager.getTransaction().commit();
+
+        // Reading objects again.
+        readPerson1 = entityManager.find(Person.class, 1);
+        readPerson2 = entityManager.find(Person.class, 2);
+        System.out.println(readPerson1);
+        System.out.println(readPerson2);
+
+        // Removing remaining object.
+        entityManager.getTransaction().begin();
+        entityManager.remove(readPerson2);
         entityManager.getTransaction().commit();
 
         factory.close();

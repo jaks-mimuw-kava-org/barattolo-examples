@@ -1,2 +1,3 @@
 rootProject.name = 'barattolo-examples'
-
+include ':Barattolo'
+project(':Barattolo').projectDir = new File('../Barattolo')
