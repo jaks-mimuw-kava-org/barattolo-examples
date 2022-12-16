@@ -24,6 +24,7 @@ public class Main {
         Person readPerson2 = entityManager.find(Person.class, 2);
         System.out.println(readPerson1);
         System.out.println(readPerson2);
+        System.out.println();
 
         // Deleting one objet.
         entityManager.getTransaction().begin();
@@ -35,10 +36,19 @@ public class Main {
         readPerson2 = entityManager.find(Person.class, 2);
         System.out.println(readPerson1);
         System.out.println(readPerson2);
+        System.out.println();
 
         // Removing remaining object.
         entityManager.getTransaction().begin();
         entityManager.remove(readPerson2);
+        entityManager.getTransaction().commit();
+
+        // Adding an object to see in the db ui.
+        int id = 42;
+        Person personX = new Person(id, "Anna", "Kowalska", 34, "111222333");
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(personX);
         entityManager.getTransaction().commit();
 
         factory.close();
