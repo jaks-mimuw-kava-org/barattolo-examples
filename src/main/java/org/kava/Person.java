@@ -3,6 +3,7 @@ package org.kava;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Person {
@@ -14,13 +15,17 @@ public class Person {
     private String lastName;
     private int age;
     private String phoneNumber;
+    @Column(name = "house")
+    @ManyToOne
+    private House house;
 
-    public Person(int id, String firstName, String lastName, int age, String phoneNumber) {
+    public Person(int id, String firstName, String lastName, int age, String phoneNumber, House house) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.phoneNumber = phoneNumber;
+        this.house = house;
     }
 
     public Person() {
@@ -67,6 +72,14 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
 
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -75,6 +88,7 @@ public class Person {
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", house=" + house +
                 '}';
     }
 }
